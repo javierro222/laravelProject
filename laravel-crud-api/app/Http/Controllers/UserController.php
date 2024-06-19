@@ -37,10 +37,19 @@ class UserController extends Controller
      */
     public function store(UserRequest $request): RedirectResponse
     {
-        User::create($request->validated());
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed',
+        ]);
 
-        return Redirect::route('users.index')
-            ->with('success', 'Usuario creado exitosamente');
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password; // La contraseña se encriptará automáticamente en el modelo
+        $user->save();
+
+        return redirect()->route('user.index')->with('success', 'Usuario creado correctamente.');
     }
 
     /**
@@ -70,7 +79,7 @@ class UserController extends Controller
     {
         $user->update($request->validated());
 
-        return Redirect::route('users.index')
+        return Redirect::route('user.index')
             ->with('success', 'Usuario actualizado exitosamente');
     }
 

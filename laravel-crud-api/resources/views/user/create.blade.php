@@ -1,28 +1,55 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ __('Create') }} User
+    Crear Usuario
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
-        <div class="row">
-            <div class="col-md-12">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">{{ __('Crear Nuevo Usuario') }}</div>
 
-                <div class="card card-default">
-                    <div class="card-header">
-                        <span class="card-title">{{ __('Create') }} User</span>
-                    </div>
-                    <div class="card-body bg-white">
-                        <form method="POST" action="{{ route('users.store') }}"  role="form" enctype="multipart/form-data">
+                    <div class="card-body">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <form method="POST" action="{{ route('users.store') }}">
                             @csrf
 
-                            @include('user.form')
+                            <div class="form-group">
+                                <label for="name">{{ __('Nombre') }}</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
 
+                            <div class="form-group">
+                                <label for="email">{{ __('Correo Electrónico') }}</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">{{ __('Contraseña') }}</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password_confirmation">{{ __('Confirmar Contraseña') }}</label>
+                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">{{ __('Crear Usuario') }}</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 @endsection
