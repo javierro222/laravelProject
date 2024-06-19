@@ -12,7 +12,7 @@ use Illuminate\View\View;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * * Muestra la lista de los usuarios
      */
     public function index(Request $request): View
     {
@@ -23,7 +23,7 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * * Muestra el formulario para crear un usuario
      */
     public function create(): View
     {
@@ -33,18 +33,18 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * * Guarda un usuario y lo almacena
      */
     public function store(UserRequest $request): RedirectResponse
     {
         User::create($request->validated());
 
         return Redirect::route('users.index')
-            ->with('success', 'User created successfully.');
+            ->with('success', 'Usuario creado exitosamente');
     }
 
     /**
-     * Display the specified resource.
+     * * Muestra el usuario
      */
     public function show($id): View
     {
@@ -54,7 +54,7 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * * Función para editar un usuario.
      */
     public function edit($id): View
     {
@@ -64,21 +64,24 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * * Función para actualizar un usuario.
      */
     public function update(UserRequest $request, User $user): RedirectResponse
     {
         $user->update($request->validated());
 
         return Redirect::route('users.index')
-            ->with('success', 'User updated successfully');
+            ->with('success', 'Usuario actualizado exitosamente');
     }
 
+    /**
+     * * Función para borrar un usuario
+     */
     public function destroy($id): RedirectResponse
     {
         User::find($id)->delete();
 
         return Redirect::route('users.index')
-            ->with('success', 'User deleted successfully');
+            ->with('success', 'Usuario borrado exitosamente');
     }
 }
