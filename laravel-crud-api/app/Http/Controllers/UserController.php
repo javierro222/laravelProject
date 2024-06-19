@@ -49,7 +49,7 @@ class UserController extends Controller
         $user->password = $request->password; // La contraseña se encriptará automáticamente en el modelo
         $user->save();
 
-        return redirect()->route('user.index')->with('success', 'Usuario creado correctamente.');
+        return redirect()->route('users.index')->with('success', 'Usuario creado correctamente.');
     }
 
     /**
@@ -79,7 +79,7 @@ class UserController extends Controller
     {
         $user->update($request->validated());
 
-        return Redirect::route('user.index')
+        return Redirect::route('users.index')
             ->with('success', 'Usuario actualizado exitosamente');
     }
 
