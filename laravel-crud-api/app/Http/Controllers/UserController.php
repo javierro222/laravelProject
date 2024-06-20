@@ -18,6 +18,8 @@ class UserController extends Controller
     {
         $users = User::paginate();
 
+        $inspiration = exec('php artisan inspire');
+        
         return view('user.index', compact('users'))
             ->with('i', ($request->input('page', 1) - 1) * $users->perPage());
     }
